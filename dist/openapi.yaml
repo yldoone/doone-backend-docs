@@ -1,0 +1,753 @@
+openapi: 3.0.0
+info:
+  title: 'Doone Order API 文档'
+  description: |
+    Doone 订单系统的接口文档
+    
+    **注意**: 所有 API 请求都需要包含以下自定义头部：
+
+    - `XX-Device-Type`: 设备类型（如: web, mobile, tablet）
+    - `XX-deviceId`: 设备标识符
+    - `XX-appId`: 应用标识符
+    - `XX-Token`: 自定义 token
+
+    实际 API 调用格式：  
+    `http://{host}/api.php?s={endpoint_path}`  
+    （其中 `{host}` 可为 localhost 或其他服务器地址）
+
+    示例：  
+    ```bash
+    curl -X GET "http://localhost/api.php?s=order/order/myappointment" \
+      -H "Authorization: Bearer 0828c1e75e9e49d3ca72eecf699720c7d5cc68e494607661b6b1542fb74a15a2" \
+      -H "XX-Device-Type: web" \
+      -H "XX-deviceId: test-device-123" \
+      -H "XX-appId: __UNI__24E4D78"
+    ```
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+    description: 本地开发服务器
+paths:
+  /order/order/myorder:
+    get:
+      tags:
+        - order
+      summary: 用户订单列表
+      description: 获取用户的订单列表，支持按门店ID和状态筛选
+      operationId: bc42116d26aa787d802647af1a4a780b
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的订单
+          required: false
+          schema:
+            type: integer
+        -
+          name: status
+          in: query
+          description: 订单状态，用于筛选特定状态的订单
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: 订单ID
+                            order_sn:
+                              type: string
+                              description: 订单编号
+                            total_price:
+                              type: string
+                              description: 总价
+                            pay_status:
+                              type: integer
+                              description: 支付状态
+                            order_status:
+                              type: integer
+                              description: 订单状态
+                            start_time:
+                              type: integer
+                              description: 开始时间
+                            startDate:
+                              type: string
+                              description: 格式化的开始时间
+                      total:
+                        type: integer
+                        example: 0
+  /order/order/myappointment:
+    get:
+      tags:
+        - order
+      summary: 用户预约订单列表
+      description: 获取用户的预约订单列表，支持按状态、门店ID和类型筛选
+      operationId: 1f5a56992998dd5ea71d8013e9d932c3
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: status
+          in: query
+          description: 预约状态 (1=已完成, 2=已取消, 3=未到店)
+          required: false
+          schema:
+            type: integer
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的预约订单
+          required: false
+          schema:
+            type: integer
+        -
+          name: type
+          in: query
+          description: 类型 (3=订阅类型)
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: 订单ID
+                            order_sn:
+                              type: string
+                              description: 订单编号
+                            total_price:
+                              type: string
+                              description: 总价
+                            order_status:
+                              type: integer
+                              description: 订单状态
+                            start_time:
+                              type: integer
+                              description: 开始时间
+                            startDate:
+                              type: string
+                              description: 格式化的开始时间
+                      total:
+                        type: integer
+                        example: 0
+  /order/order/billsInfo:
+    get:
+      tags:
+        - order
+      summary: 账单详情
+      description: 获取指定账单的详细信息
+      operationId: 4f493208cebd6ed2a6b3e518fd3a2e87
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 账单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: object
+                    properties:
+                      payInfo:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: 账单ID
+                          sn:
+                            type: string
+                            description: 账单编号
+                          total_price:
+                            type: string
+                            description: 总价
+                          pay_amount:
+                            type: string
+                            description: 支付金额
+                          pay_status:
+                            type: integer
+                            description: 支付状态
+                          create_time:
+                            type: string
+                            description: 创建时间
+                          bill_status_text:
+                            type: string
+                            description: 账单状态文本
+                          member:
+                            type: object
+                            description: 会员信息
+  /order/order/detail:
+    get:
+      tags:
+        - order
+      summary: 订单详情
+      description: 获取指定订单的详细信息
+      operationId: 68dd001652abf340756ed73026340e64
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 订单ID
+                      order_sn:
+                        type: string
+                        description: 订单编号
+                      total_price:
+                        type: string
+                        description: 总价
+                      order_status:
+                        type: integer
+                        description: 订单状态
+                      pay_status:
+                        type: integer
+                        description: 支付状态
+                      start_time:
+                        type: integer
+                        description: 开始时间
+                      startDate:
+                        type: string
+                        description: 格式化的开始时间
+                      is_can_cancel:
+                        type: integer
+                        description: 是否可以取消
+                      orderGoods:
+                        type: array
+                        items:
+                          type: object
+                        description: 订单商品列表
+                      store:
+                        type: object
+                        description: 门店信息
+  /order/order/delete:
+    delete:
+      tags:
+        - order
+      summary: 删除订单
+      description: 删除指定的订单
+      operationId: ef8370aecb933df09a13d4c15a182aa7
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "error"
+  /order/order/complete:
+    post:
+      tags:
+        - order
+      summary: 完成订单
+      description: 将订单标记为已完成
+      operationId: 7bf23001fed6077668981ad42aa5e8ab
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "error"
+  /order/order/cancel:
+    post:
+      tags:
+        - order
+      summary: 取消订单
+      description: 取消指定的订单
+      operationId: 66bc40ad75c6f2000b9ddc32b0ad9d0f
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "error"
+  /order/order/pay:
+    post:
+      tags:
+        - order
+      summary: 支付订单
+      description: 将订单标记为已支付
+      operationId: 390f609bdd4ca9a19c778ac4f5754150
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "error"
+  /order/order/comments:
+    post:
+      tags:
+        - order
+      summary: 订单评价
+      description: 将订单标记为已评价
+      operationId: 932743aa7195b8a7e439b7406eeffe8e
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，必填参数
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "error"
+  /store/order/list:
+    get:
+      tags:
+        - store-order
+      summary: 门店订单列表
+      description: 获取门店的订单列表，支持按ID和订单类型筛选
+      operationId: store_order_list
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 订单ID，多个用逗号分隔，用于筛选特定订单
+          required: false
+          schema:
+            type: string
+        -
+          name: order_type
+          in: query
+          description: 订单类型 (2=今日订单)，用于筛选特定类型的订单
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 订单ID
+                        username:
+                          type: string
+                          description: 用户名
+                        number:
+                          type: integer
+                          description: 订单号
+                        total_price:
+                          type: string
+                          description: 总价
+                        pay_status:
+                          type: integer
+                          description: 支付状态
+                        order_status:
+                          type: integer
+                          description: 订单状态
+                        start_time:
+                          type: string
+                          description: 开始时间
+                        order_goods:
+                          type: array
+                          items:
+                            type: object
+                          description: 订单商品列表
+  /store/order/pay:
+    post:
+      tags:
+        - store-order
+      summary: 门店订单支付
+      description: 处理门店订单的支付，支持多种支付方式
+      operationId: store_order_pay
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pay_member_id:
+                  type: integer
+                  description: 支付会员ID
+                  example: 1002
+                pay_type_list:
+                  type: array
+                  description: 支付方式列表
+                  items:
+                    type: object
+                    properties:
+                      alias:
+                        type: string
+                        description: 支付方式别名
+                        example: "coupon"
+                      use:
+                        type: integer
+                        description: 使用金额
+                        example: 3002
+                      use_id:
+                        type: array
+                        items:
+                          type: integer
+                        description: 使用的ID列表
+                        example: [3002]
+                id:
+                  type: array
+                  items:
+                    type: integer
+                  description: 订单ID列表
+                  example: [1426715]
+                discount:
+                  type: number
+                  format: float
+                  description: 折扣金额
+                  example: 0.00
+                storeDiscount:
+                  type: number
+                  format: float
+                  description: 门店折扣
+                  example: 0.00
+                tipRate:
+                  type: number
+                  format: float
+                  description: 小费比例
+                  example: 0.00
+                tipPirce:
+                  type: number
+                  format: float
+                  description: 小费金额
+                  example: 0.00
+                tipCash:
+                  type: number
+                  format: float
+                  description: 现金小费
+                  example: 0.00
+                exempt:
+                  type: integer
+                  description: 优免
+                  example: 0
+                is_case_tip:
+                  type: integer
+                  description: 是否有现金小费
+                  example: 0
+                isCash:
+                  type: integer
+                  description: 是否有现金支付
+                  example: 0
+                service_charge:
+                  type: number
+                  format: float
+                  description: 服务费
+                  example: 0.00
+                payLog:
+                  type: array
+                  description: 支付日志
+                  example: []
+                useBack:
+                  type: integer
+                  description: 是否退回
+                  example: 0
+                pay_number:
+                  type: string
+                  description: 支付号码
+                  example: ""
+                pay_type:
+                  type: integer
+                  description: 支付类型
+                  example: 0
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "success"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "抱歉，现有差额 $20 无法结账"
+
+tags:
+  -
+    name: order
+    description: 用户订单相关接口
+  -
+    name: store-order
+    description: 门店订单相关接口
+
+components:
+  securitySchemes:
+    ApiToken-AuthorizationBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Bearer token authentication. 
+        
+        Include the token in the Authorization header as "Bearer {token}".
+        
+        **示例**: `Authorization: Bearer 0828c1e75e9e49d3ca72eecf699720c7d5cc68e494607661b6b1542fb74a15a2`
+    ApiToken-XX-Token:
+      type: apiKey
+      name: XX-Token
+      in: header
+      description: 'Custom token header for API authentication'
+    ApiToken-Authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'Authorization header for API authentication'
