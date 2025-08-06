@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: 'Doone Order API 文档'
   description: |
-    Doone 订单系统的接口文档
+    Doone 后台系统的接口文档
     
     **注意**: 所有 API 请求都需要包含以下自定义头部：
 
