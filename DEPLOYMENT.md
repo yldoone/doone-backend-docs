@@ -15,6 +15,7 @@ Your Doone Backend API Documentation is now deployed to GitHub Pages!
 ✅ **GitHub Actions**: Automatic deployment workflow configured  
 ✅ **Documentation**: Complete API documentation with all endpoints  
 ✅ **Deployment Script**: `./deploy.sh` for easy updates  
+✅ **Redirect Page**: Root `index.html` redirects to Swagger UI  
 
 ### 📝 How to Update Documentation
 
@@ -45,33 +46,33 @@ The GitHub Actions workflow will automatically:
 
 ```
 doone-backend-docs/
-├── dist/
-│   ├── index.html              # Swagger UI main page
-│   ├── openapi.yaml            # API specification
-│   └── swagger-initializer.js  # Swagger UI config
+├── dist/                      # Swagger UI files (deployed to GitHub Pages)
+│   ├── index.html            # Main Swagger UI page
+│   ├── openapi.yaml          # API specification
+│   ├── swagger-initializer.js # Swagger UI configuration
+│   └── .nojekyll             # GitHub Pages configuration
+├── index.html                # Redirect page (serves from root)
 ├── .github/workflows/
-│   └── static.yml              # GitHub Pages deployment
-├── deploy.sh                   # Deployment script
-├── README.md                   # Project documentation
-└── DEPLOYMENT.md               # This file
+│   └── static.yml            # GitHub Pages deployment workflow
+├── deploy.sh                 # Deployment script
+├── README.md                 # Project documentation
+└── DEPLOYMENT.md             # This file
 ```
 
 ### 🌐 Access Your Documentation
 
-Once GitHub Pages is enabled (you may need to do this manually in the repository settings), your documentation will be available at:
+Your documentation is now available at:
 
 **https://yldoone.github.io/doone-backend-docs/**
 
-### ⚙️ GitHub Pages Settings
+The site will automatically redirect to the Swagger UI documentation in the `dist/` folder.
 
-To enable GitHub Pages (if not already done):
+### ⚙️ GitHub Pages Configuration
 
-1. Go to your repository: https://github.com/yldoone/doone-backend-docs
-2. Click **Settings** tab
-3. Scroll down to **Pages** section
-4. Under **Source**, select **Deploy from a branch**
-5. Choose **master** branch and **/(root)** folder
-6. Click **Save**
+The deployment is configured to:
+- **Source**: Deploy from `dist/` folder via GitHub Actions
+- **Branch**: `master` branch triggers deployment
+- **Redirect**: Root `index.html` redirects to `./dist/`
 
 ### 🔍 What's Included
 
@@ -81,13 +82,23 @@ To enable GitHub Pages (if not already done):
 - **Request/Response** examples
 - **Error Handling** documentation
 - **Interactive Testing** via Swagger UI
+- **Automatic Redirect** from root to Swagger UI
 
 ### 🎯 Next Steps
 
-1. **Enable GitHub Pages** in repository settings
-2. **Test the live site** once deployed
-3. **Share the URL** with your team
-4. **Update documentation** as needed using `./deploy.sh`
+1. **Test the live site**: Visit https://yldoone.github.io/doone-backend-docs/
+2. **Share the URL** with your team
+3. **Update documentation** as needed using `./deploy.sh`
+4. **Bookmark the site** for easy access
+
+### 🛠️ Troubleshooting
+
+If the site doesn't load properly:
+
+1. **Check GitHub Actions**: Go to Actions tab in your repository
+2. **Verify deployment**: Check if the workflow completed successfully
+3. **Clear cache**: Try opening in incognito mode
+4. **Check redirect**: The root page should redirect to `./dist/`
 
 ### 📞 Support
 
@@ -98,4 +109,6 @@ If you need help with:
 
 ---
 
-**🎉 Your API documentation is now live and ready to use!** 
+**🎉 Your API documentation is now live and ready to use!**
+
+**🌐 Live URL**: https://yldoone.github.io/doone-backend-docs/ 
