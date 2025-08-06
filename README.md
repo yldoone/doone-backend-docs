@@ -1,117 +1,164 @@
-# <img src="https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SWU-logo-clr.png" width="300">
+# Doone Backend API Documentation
 
-[![NPM version](https://badge.fury.io/js/swagger-ui.svg)](http://badge.fury.io/js/swagger-ui)
-[![Build Status](https://jenkins.swagger.io/view/OSS%20-%20JavaScript/job/oss-swagger-ui-master/badge/icon?subject=jenkins%20build)](https://jenkins.swagger.io/view/OSS%20-%20JavaScript/job/oss-swagger-ui-master/)
-[![npm audit](https://jenkins.swagger.io/buildStatus/icon?job=oss-swagger-ui-security-audit&subject=npm%20audit)](https://jenkins.swagger.io/job/oss-swagger-ui-security-audit/lastBuild/console)
-[![total GitHub contributors](https://img.shields.io/github/contributors-anon/swagger-api/swagger-ui.svg)](https://github.com/swagger-api/swagger-ui/graphs/contributors)
+This repository contains the API documentation for the Doone Backend system, built with Swagger UI.
 
-[![monthly npm installs](https://img.shields.io/npm/dm/swagger-ui.svg?label=npm%20downloads)](https://www.npmjs.com/package/swagger-ui)
-![docker registry](https://img.shields.io/badge/docker-docker.swagger.io%2Fswaggerapi%2Fswagger--ui-blue)
-![monthly packagist installs](https://img.shields.io/packagist/dm/swagger-api/swagger-ui.svg?label=packagist%20installs)
-[![gzip size](https://img.shields.io/bundlephobia/minzip/swagger-ui.svg?label=gzip%20size)](https://bundlephobia.com/package/swagger-ui)
+## 📖 Overview
 
-## Introduction
-[Swagger UI](https://swagger.io/tools/swagger-ui/) allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption.
+This documentation provides comprehensive API reference for the Doone order management system, including:
 
-## General
-**👉🏼 Want to score an easy open-source contribution?** Check out our [Good first issue](https://github.com/swagger-api/swagger-ui/issues?q=is%3Aissue+is%3Aopen+label%3A%22Good+first+issue%22) label.
+- **User Order Management**: Endpoints for users to manage their orders and appointments
+- **Store Order Management**: Endpoints for store staff to manage orders and payments
+- **Authentication**: Bearer token authentication for all endpoints
+- **Custom Headers**: Required custom headers for API requests
 
-**🕰️ Looking for the older version of Swagger UI?** Refer to the [*2.x* branch](https://github.com/swagger-api/swagger-ui/tree/2.x).
+## 🚀 Live Documentation
 
+The documentation is deployed and available at: [https://yifeili.github.io/doone-backend-docs/](https://yifeili.github.io/doone-backend-docs/)
 
-This repository publishes three different NPM modules:
+## 📋 API Endpoints
 
-* [swagger-ui](https://www.npmjs.com/package/swagger-ui) is a traditional npm module intended for use in single-page applications that are capable of resolving dependencies (via Webpack, Browserify, etc.).
-* [swagger-ui-dist](https://www.npmjs.com/package/swagger-ui-dist) is a dependency-free module that includes everything you need to serve Swagger UI in a server-side project, or a single-page application that can't resolve npm module dependencies.
-* [swagger-ui-react](https://www.npmjs.com/package/swagger-ui-react) is Swagger UI packaged as a React component for use in React applications.
+### User Order Endpoints (`/order/order/*`)
 
-We strongly suggest that you use `swagger-ui` instead of `swagger-ui-dist` if you're building a single-page application, since `swagger-ui-dist` is significantly larger.
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/order/order/myorder` | GET | Get user's order list |
+| `/order/order/myappointment` | GET | Get user's appointment list |
+| `/order/order/billsInfo` | GET | Get bill details |
+| `/order/order/detail` | GET | Get order details |
+| `/order/order/delete` | DELETE | Delete order |
+| `/order/order/complete` | POST | Mark order as completed |
+| `/order/order/cancel` | POST | Cancel order |
+| `/order/order/pay` | POST | Mark order as paid |
+| `/order/order/comments` | POST | Mark order as evaluated |
 
-If you are looking for plain ol' HTML/JS/CSS, [download the latest release](https://github.com/swagger-api/swagger-ui/releases/latest) and copy the contents of the `/dist` folder to your server.
+### Store Order Endpoints (`/store/order/*`)
 
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/store/order/list` | GET | Get store's order list |
+| `/store/order/pay` | POST | Process store order payment |
 
-## Compatibility
-The OpenAPI Specification has undergone 5 revisions since initial creation in 2010.  Compatibility between Swagger UI and the OpenAPI Specification is as follows:
+## 🔐 Authentication
 
-| Swagger UI Version | Release Date | OpenAPI Spec compatibility                           | Notes                                                                 |
-|--------------------|--------------|------------------------------------------------------|-----------------------------------------------------------------------|
-| 5.19.0             | 2025-02-17   | 2.0, 3.0.0, 3.0.1, 3.0.2, 3.0.3, 3.0.4, 3.1.0, 3.1.1 | [tag v5.19.0](https://github.com/swagger-api/swagger-ui/tree/v5.19.0) |
-| 5.0.0              | 2023-06-12   | 2.0, 3.0.0, 3.0.1, 3.0.2, 3.0.3, 3.1.0               | [tag v5.0.0](https://github.com/swagger-api/swagger-ui/tree/v5.0.0)   |
-| 4.0.0              | 2021-11-03   | 2.0, 3.0.0, 3.0.1, 3.0.2, 3.0.3                      | [tag v4.0.0](https://github.com/swagger-api/swagger-ui/tree/v4.0.0)   |
-| 3.18.3             | 2018-08-03   | 2.0, 3.0.0, 3.0.1, 3.0.2, 3.0.3                      | [tag v3.18.3](https://github.com/swagger-api/swagger-ui/tree/v3.18.3) |
-| 3.0.21             | 2017-07-26   | 2.0                                                  | [tag v3.0.21](https://github.com/swagger-api/swagger-ui/tree/v3.0.21) |
-| 2.2.10             | 2017-01-04   | 1.1, 1.2, 2.0                                        | [tag v2.2.10](https://github.com/swagger-api/swagger-ui/tree/v2.2.10) |
-| 2.1.5              | 2016-07-20   | 1.1, 1.2, 2.0                                        | [tag v2.1.5](https://github.com/swagger-api/swagger-ui/tree/v2.1.5)   |
-| 2.0.24             | 2014-09-12   | 1.1, 1.2                                             | [tag v2.0.24](https://github.com/swagger-api/swagger-ui/tree/v2.0.24) |
-| 1.0.13             | 2013-03-08   | 1.1, 1.2                                             | [tag v1.0.13](https://github.com/swagger-api/swagger-ui/tree/v1.0.13) |
-| 1.0.1              | 2011-10-11   | 1.0, 1.1                                             | [tag v1.0.1](https://github.com/swagger-api/swagger-ui/tree/v1.0.1)   |
+All API endpoints require Bearer token authentication:
 
-## Anonymized analytics
-
-SwaggerUI uses [Scarf](https://scarf.sh/) to collect [anonymized installation analytics](https://github.com/scarf-sh/scarf-js?tab=readme-ov-file#as-a-user-of-a-package-using-scarf-js-what-information-does-scarf-js-send-about-me). These analytics help support the maintainers of this library and ONLY run during installation. To [opt out](https://github.com/scarf-sh/scarf-js?tab=readme-ov-file#as-a-user-of-a-package-using-scarf-js-how-can-i-opt-out-of-analytics), you can set the `scarfSettings.enabled` field to `false` in your project's `package.json`:
-
-```
-// package.json
-{
-  // ...
-  "scarfSettings": {
-    "enabled": false
-  }
-  // ...
-}
+```bash
+Authorization: Bearer 0828c1e75e9e49d3ca72eecf699720c7d5cc68e494607661b6b1542fb74a15a2
 ```
 
-Alternatively, you can set the environment variable `SCARF_ANALYTICS` to `false` as part of the environment that installs your npm packages, e.g., `SCARF_ANALYTICS=false npm install`.
+## 📋 Required Headers
 
-## Documentation
+All API requests must include these custom headers:
 
-#### Usage
-- [Installation](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/installation.md)
-- [Configuration](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/configuration.md)
-- [CORS](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/cors.md)
-- [OAuth2](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/oauth2.md)
-- [Deep Linking](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/deep-linking.md)
-- [Limitations](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/limitations.md)
-- [Version detection](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/usage/version-detection.md)
+```bash
+XX-Device-Type: web
+XX-deviceId: test-device-123
+XX-appId: __UNI__24E4D78
+```
 
-#### Customization
-- [Overview](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/customization/overview.md)
-- [Plugin API](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/customization/plugin-api.md)
-- [Custom layout](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/customization/custom-layout.md)
+## 🌐 API Base URL
 
-#### Development
-- [Setting up](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/development/setting-up.md)
-- [Scripts](https://github.com/swagger-api/swagger-ui/blob/HEAD/docs/development/scripts.md)
+The API base URL format is:
+```
+http://{host}/api.php?s={endpoint_path}
+```
 
-#### Contributing
-- [Contributing](https://github.com/swagger-api/.github/blob/HEAD/CONTRIBUTING.md)
+Where `{host}` can be `localhost` or any other server address.
 
-##### Integration Tests
+## 📝 Example Usage
 
-You will need JDK of version 7 or higher as instructed here
-https://nightwatchjs.org/guide/getting-started/installation.html#install-selenium-server
+### Get User Appointments
+```bash
+curl -X GET "http://localhost/api.php?s=order/order/myappointment" \
+  -H "Authorization: Bearer 0828c1e75e9e49d3ca72eecf699720c7d5cc68e494607661b6b1542fb74a15a2" \
+  -H "XX-Device-Type: web" \
+  -H "XX-deviceId: test-device-123" \
+  -H "XX-appId: __UNI__24E4D78"
+```
 
-Integration tests can be run locally with `npm run e2e` - be sure you aren't running a dev server when testing!
+### Process Store Payment
+```bash
+curl -X POST "http://localhost/api.php?s=store/order/pay" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 0828c1e75e9e49d3ca72eecf699720c7d5cc68e494607661b6b1542fb74a15a2" \
+  -H "XX-Device-Type: web" \
+  -H "XX-deviceId: test-device-123" \
+  -H "XX-appId: __UNI__24E4D78" \
+  -d '{
+    "pay_member_id": 1002,
+    "pay_type_list": [
+      {"alias": "coupon", "use": 3002, "use_id": [3002]}
+    ],
+    "id": [1426715],
+    "discount": 0.00,
+    "storeDiscount": 0.00,
+    "tipRate": 0.00,
+    "tipPirce": 0.00,
+    "tipCash": 0.00,
+    "exempt": 0,
+    "is_case_tip": 0,
+    "isCash": 0,
+    "service_charge": 0.00,
+    "payLog": [],
+    "useBack": 0,
+    "pay_number": "",
+    "pay_type": 0
+  }'
+```
 
-### Browser support
-Swagger UI works in the latest versions of Chrome, Safari, Firefox, and Edge.
+## 🛠️ Local Development
 
-### Known Issues
+To run this documentation locally:
 
-To help with the migration, here are the currently known issues with 3.X. This list will update regularly, and will not include features that were not implemented in previous versions.
+1. Clone the repository:
+```bash
+git clone https://github.com/yifeili/doone-backend-docs.git
+cd doone-backend-docs
+```
 
-- Only part of the parameters previously supported are available.
-- The JSON Form Editor is not implemented.
-- Support for `collectionFormat` is partial.
-- l10n (translations) is not implemented.
-- Relative path support for external files is not implemented.
+2. Serve the files using a local server:
+```bash
+# Using Python 3
+python -m http.server 8000
 
-## Security contact
+# Using Node.js
+npx serve .
 
-Please disclose any security-related issues or vulnerabilities by emailing [security@swagger.io](mailto:security@swagger.io), instead of using the public issue tracker.
+# Using PHP
+php -S localhost:8000
+```
 
-## License
+3. Open your browser and navigate to `http://localhost:8000`
 
-SwaggerUI is licensed under [Apache 2.0 license](https://github.com/swagger-api/swagger-ui/blob/master/LICENSE).
-SwaggerUI comes with an explicit [NOTICE](https://github.com/swagger-api/swagger-ui/blob/master/NOTICE) file
-containing additional legal notices and information.
+## 📁 Project Structure
+
+```
+doone-backend-docs/
+├── dist/
+│   ├── index.html          # Main Swagger UI page
+│   ├── openapi.yaml        # API specification
+│   └── swagger-initializer.js  # Swagger UI configuration
+├── README.md               # This file
+└── .gitignore             # Git ignore file
+```
+
+## 🔧 Configuration
+
+The Swagger UI is configured in `dist/swagger-initializer.js` to load the OpenAPI specification from `./openapi.yaml`.
+
+## 📄 License
+
+This documentation is part of the Doone Backend system.
+
+## 🤝 Contributing
+
+To update the API documentation:
+
+1. Modify the `dist/openapi.yaml` file
+2. Test the changes locally
+3. Commit and push the changes
+4. GitHub Pages will automatically deploy the updates
+
+## 📞 Support
+
+For questions about the API or documentation, please contact the development team.
