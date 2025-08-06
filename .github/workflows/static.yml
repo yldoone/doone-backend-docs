@@ -25,6 +25,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      - name: Check dist folder
+        run: |
+          echo "Checking dist folder contents:"
+          ls -la dist/
+          echo "Checking if index.html exists:"
+          test -f dist/index.html && echo "✅ index.html found" || echo "❌ index.html not found"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
