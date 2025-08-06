@@ -31,6 +31,8 @@ jobs:
           ls -la dist/
           echo "Checking if index.html exists:"
           test -f dist/index.html && echo "✅ index.html found" || echo "❌ index.html not found"
+          echo "Checking if openapi.yaml exists:"
+          test -f dist/openapi.yaml && echo "✅ openapi.yaml found" || echo "❌ openapi.yaml not found"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
