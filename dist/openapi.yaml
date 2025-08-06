@@ -680,6 +680,8 @@ paths:
                 payLog:
                   type: array
                   description: 支付日志
+                  items:
+                    type: object
                   example: []
                 useBack:
                   type: integer
