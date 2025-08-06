@@ -13,7 +13,7 @@ This documentation provides comprehensive API reference for the Doone order mana
 
 ## 🚀 Live Documentation
 
-The documentation is deployed and available at: [https://yifeili.github.io/doone-backend-docs/](https://yifeili.github.io/doone-backend-docs/)
+The documentation is deployed and available at: [https://yifeili.github.io/doone-backend-docs/](https://yldoone.github.io/doone-backend-docs/)
 
 ## 📋 API Endpoints
 
