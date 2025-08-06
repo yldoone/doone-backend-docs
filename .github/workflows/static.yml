@@ -30,12 +30,10 @@ jobs:
           test -f dist/openapi.yaml && echo "✅ openapi.yaml found" || echo "❌ openapi.yaml not found"
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        continue-on-error: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
-        continue-on-error: true 
+        uses: actions/deploy-pages@v4 
