@@ -2526,6 +2526,1082 @@ paths:
                     description: 二维码图片URL
                     example: "http://localhost/upload/qrcode/1754585636.png"
 
+  /user/community/category:
+    get:
+      tags:
+        - user-community
+      summary: 社区分类列表
+      description: 获取社区分类列表
+      operationId: user_community_category
+      security:
+        - ApiToken-AuthorizationBearer: []
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 分类ID
+                          example: 1
+                        name:
+                          type: string
+                          description: 分类名称
+                          example: "美甲招聘"
+                        name_en:
+                          type: string
+                          description: 英文名称
+                          example: "recruit"
+                        create_time:
+                          type: integer
+                          description: 创建时间戳
+                          example: 0
+                        status:
+                          type: integer
+                          description: 状态
+                          example: 1
+                        update_time:
+                          type: integer
+                          description: 更新时间戳
+                          example: 0
+                        delete_time:
+                          type: string
+                          nullable: true
+                          description: 删除时间
+                          example: null
+                        content:
+                          type: string
+                          description: 内容
+                          example: ""
+                        images:
+                          type: string
+                          description: 图片
+                          example: ""
+                        list_order:
+                          type: integer
+                          description: 排序
+                          example: 100
+                        more:
+                          type: object
+                          description: 更多信息
+                          properties:
+                            thumbnail:
+                              type: string
+                              description: 缩略图
+                              example: "http://localhost/upload/default/20240103/11a311dbb379a4175d3d6997d73cd900.png"
+                            photos:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  url:
+                                    type: string
+                                    description: 图片URL
+                                  name:
+                                    type: string
+                                    description: 图片名称
+                            uphotos:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  url:
+                                    type: string
+                                    description: 图片URL
+                                  name:
+                                    type: string
+                                    description: 图片名称
+                        parent_id:
+                          type: integer
+                          description: 父级ID
+                          example: 0
+                        path:
+                          type: string
+                          description: 路径
+                          example: "0-1"
+                        description:
+                          type: string
+                          description: 描述
+                          example: ""
+                        seo_title:
+                          type: string
+                          description: SEO标题
+                          example: ""
+                        seo_keywords:
+                          type: string
+                          description: SEO关键词
+                          example: ""
+                        seo_description:
+                          type: string
+                          description: SEO描述
+                          example: ""
+                        list_tpl:
+                          type: string
+                          description: 列表模板
+                          example: ""
+                        one_tpl:
+                          type: string
+                          description: 详情模板
+                          example: ""
+
+  /user/community/category_all:
+    get:
+      tags:
+        - user-community
+      summary: 社区全部分类列表
+      description: 获取社区全部分类列表，包含"全部"选项
+      operationId: user_community_category_all
+      security:
+        - ApiToken-AuthorizationBearer: []
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 分类ID (0表示"全部")
+                          example: 0
+                        name:
+                          type: string
+                          description: 分类名称
+                          example: "全部"
+                        name_en:
+                          type: string
+                          description: 英文名称
+                          example: "All"
+                        create_time:
+                          type: integer
+                          description: 创建时间戳
+                          example: 0
+                        status:
+                          type: integer
+                          description: 状态
+                          example: 1
+                        update_time:
+                          type: integer
+                          description: 更新时间戳
+                          example: 0
+                        delete_time:
+                          type: string
+                          nullable: true
+                          description: 删除时间
+                          example: null
+                        content:
+                          type: string
+                          description: 内容
+                          example: ""
+                        images:
+                          type: string
+                          description: 图片
+                          example: ""
+                        list_order:
+                          type: integer
+                          description: 排序
+                          example: 100
+                        more:
+                          type: object
+                          description: 更多信息
+                          properties:
+                            thumbnail:
+                              type: string
+                              description: 缩略图
+                              example: "http://localhost/upload/default/20240103/11a311dbb379a4175d3d6997d73cd900.png"
+                            photos:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  url:
+                                    type: string
+                                    description: 图片URL
+                                  name:
+                                    type: string
+                                    description: 图片名称
+                            uphotos:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  url:
+                                    type: string
+                                    description: 图片URL
+                                  name:
+                                    type: string
+                                    description: 图片名称
+                        parent_id:
+                          type: integer
+                          description: 父级ID
+                          example: 0
+                        path:
+                          type: string
+                          description: 路径
+                          example: "0-1"
+                        description:
+                          type: string
+                          description: 描述
+                          example: ""
+                        seo_title:
+                          type: string
+                          description: SEO标题
+                          example: ""
+                        seo_keywords:
+                          type: string
+                          description: SEO关键词
+                          example: ""
+                        seo_description:
+                          type: string
+                          description: SEO描述
+                          example: ""
+                        list_tpl:
+                          type: string
+                          description: 列表模板
+                          example: ""
+                        one_tpl:
+                          type: string
+                          description: 详情模板
+                          example: ""
+
+  /user/community/list:
+    get:
+      tags:
+        - user-community
+      summary: 社区内容列表
+      description: 获取社区内容列表，支持筛选和分页
+      operationId: user_community_list
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: self
+          in: query
+          description: 是否只显示自己的内容 (0-全部, 1-自己的)
+          required: false
+          schema:
+            type: integer
+            default: 0
+        -
+          name: status
+          in: query
+          description: 内容状态 (1-正常)
+          required: false
+          schema:
+            type: integer
+            default: 1
+        -
+          name: user_id
+          in: query
+          description: 用户ID，用于筛选特定用户的内容
+          required: false
+          schema:
+            type: integer
+        -
+          name: type
+          in: query
+          description: 内容类型
+          required: false
+          schema:
+            type: integer
+            default: 0
+        -
+          name: keyword
+          in: query
+          description: 搜索关键词，支持标题和内容搜索
+          required: false
+          schema:
+            type: string
+        -
+          name: category_id
+          in: query
+          description: 分类ID，用于筛选特定分类的内容
+          required: false
+          schema:
+            type: integer
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的内容
+          required: false
+          schema:
+            type: integer
+        -
+          name: page
+          in: query
+          description: 页码
+          required: false
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          description: 每页数量
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: object
+                    properties:
+                      list:
+                        type: array
+                        description: 社区内容列表
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: 内容ID
+                              example: 1
+                            user_id:
+                              type: integer
+                              description: 用户ID
+                              example: 51905
+                            store_id:
+                              type: integer
+                              description: 门店ID
+                              example: 10
+                            title:
+                              type: string
+                              description: 标题
+                              example: "美甲作品分享"
+                            content:
+                              type: string
+                              description: 内容
+                              example: "分享一个美甲作品"
+                            images:
+                              type: string
+                              description: 图片JSON字符串
+                              example: "[]"
+                            type:
+                              type: integer
+                              description: 内容类型
+                              example: 0
+                            category_id:
+                              type: integer
+                              description: 分类ID
+                              example: 5
+                            is_comment:
+                              type: integer
+                              description: 是否允许评论
+                              example: 1
+                            is_top:
+                              type: integer
+                              description: 是否置顶
+                              example: 0
+                            status:
+                              type: integer
+                              description: 状态
+                              example: 1
+                            create_time:
+                              type: integer
+                              description: 创建时间戳
+                              example: 1754585636
+                            update_time:
+                              type: integer
+                              description: 更新时间戳
+                              example: 1754585636
+                            is_like:
+                              type: integer
+                              description: 是否已点赞
+                              example: 0
+                            user:
+                              type: object
+                              description: 用户信息
+                              properties:
+                                id:
+                                  type: integer
+                                  description: 用户ID
+                                  example: 51905
+                                user_nickname:
+                                  type: string
+                                  description: 用户昵称
+                                  example: "Test User"
+                                avatar:
+                                  type: string
+                                  description: 用户头像
+                                  example: ""
+                      total:
+                        type: integer
+                        description: 总数量
+                        example: 0
+
+  /user/community/push:
+    post:
+      tags:
+        - user-community
+      summary: 发布社区内容
+      description: 发布或编辑社区内容
+      operationId: user_community_push
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 内容ID（编辑时必填）
+                  example: 0
+                is_edit:
+                  type: string
+                  description: 是否为编辑模式（edit表示编辑）
+                  example: "edit"
+                title:
+                  type: string
+                  description: 标题
+                  example: "美甲作品分享"
+                content:
+                  type: string
+                  description: 内容（必填）
+                  example: "分享一个美甲作品"
+                images:
+                  type: array
+                  description: 图片列表
+                  items:
+                    type: string
+                  example: []
+                is_comment:
+                  type: integer
+                  description: 是否允许评论（0-不允许, 1-允许）
+                  example: 1
+                type:
+                  type: integer
+                  description: 内容类型
+                  example: 0
+                category_id:
+                  type: integer
+                  description: 分类ID
+                  example: 5
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: object
+                    description: 发布的内容信息
+                    properties:
+                      id:
+                        type: integer
+                        description: 内容ID
+                        example: 1
+                      user_id:
+                        type: integer
+                        description: 用户ID
+                        example: 51905
+                      store_id:
+                        type: integer
+                        description: 门店ID
+                        example: 10
+                      title:
+                        type: string
+                        description: 标题
+                        example: "美甲作品分享"
+                      content:
+                        type: string
+                        description: 内容
+                        example: "分享一个美甲作品"
+                      images:
+                        type: string
+                        description: 图片JSON字符串
+                        example: "[]"
+                      type:
+                        type: integer
+                        description: 内容类型
+                        example: 0
+                      category_id:
+                        type: integer
+                        description: 分类ID
+                        example: 5
+                      is_comment:
+                        type: integer
+                        description: 是否允许评论
+                        example: 1
+                      status:
+                        type: integer
+                        description: 状态
+                        example: 1
+                      create_time:
+                        type: integer
+                        description: 创建时间戳
+                        example: 1754585636
+                      update_time:
+                        type: integer
+                        description: 更新时间戳
+                        example: 1754585636
+                      user:
+                        type: object
+                        description: 用户信息
+                        properties:
+                          id:
+                            type: integer
+                            description: 用户ID
+                            example: 51905
+                          user_nickname:
+                            type: string
+                            description: 用户昵称
+                            example: "Test User"
+                          avatar:
+                            type: string
+                            description: 用户头像
+                            example: ""
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "请输入内容"
+
+  /user/community/detail:
+    get:
+      tags:
+        - user-community
+      summary: 社区内容详情
+      description: 获取社区内容详情
+      operationId: user_community_detail
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 内容ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: object
+                    properties:
+                      detail:
+                        type: object
+                        description: 内容详情
+                        properties:
+                          id:
+                            type: integer
+                            description: 内容ID
+                            example: 1
+                          user_id:
+                            type: integer
+                            description: 用户ID
+                            example: 51905
+                          store_id:
+                            type: integer
+                            description: 门店ID
+                            example: 10
+                          title:
+                            type: string
+                            description: 标题
+                            example: "美甲作品分享"
+                          content:
+                            type: string
+                            description: 内容
+                            example: "分享一个美甲作品"
+                          images:
+                            type: string
+                            description: 图片JSON字符串
+                            example: "[]"
+                          type:
+                            type: integer
+                            description: 内容类型
+                            example: 0
+                          category_id:
+                            type: integer
+                            description: 分类ID
+                            example: 5
+                          is_comment:
+                            type: integer
+                            description: 是否允许评论
+                            example: 1
+                          is_top:
+                            type: integer
+                            description: 是否置顶
+                            example: 0
+                          status:
+                            type: integer
+                            description: 状态
+                            example: 1
+                          create_time:
+                            type: integer
+                            description: 创建时间戳
+                            example: 1754585636
+                          update_time:
+                            type: integer
+                            description: 更新时间戳
+                            example: 1754585636
+                          is_like:
+                            type: integer
+                            description: 是否已点赞
+                            example: 0
+                          user:
+                            type: object
+                            description: 用户信息
+                            properties:
+                              id:
+                                type: integer
+                                description: 用户ID
+                                example: 51905
+                              user_nickname:
+                                type: string
+                                description: 用户昵称
+                                example: "Test User"
+                              avatar:
+                                type: string
+                                description: 用户头像
+                                example: ""
+
+  /user/community/category_detail:
+    get:
+      tags:
+        - user-community
+      summary: 社区分类详情
+      description: 获取社区分类详情
+      operationId: user_community_category_detail
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: id
+          in: query
+          description: 分类ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: object
+                    properties:
+                      detail:
+                        type: object
+                        description: 分类详情
+                        properties:
+                          id:
+                            type: integer
+                            description: 分类ID
+                            example: 1
+                          name:
+                            type: string
+                            description: 分类名称
+                            example: "美甲招聘"
+                          name_en:
+                            type: string
+                            description: 英文名称
+                            example: "recruit"
+                          create_time:
+                            type: integer
+                            description: 创建时间戳
+                            example: 0
+                          status:
+                            type: integer
+                            description: 状态
+                            example: 1
+                          update_time:
+                            type: integer
+                            description: 更新时间戳
+                            example: 0
+                          delete_time:
+                            type: string
+                            nullable: true
+                            description: 删除时间
+                            example: null
+                          content:
+                            type: string
+                            description: 内容
+                            example: ""
+                          images:
+                            type: string
+                            description: 图片
+                            example: ""
+                          list_order:
+                            type: integer
+                            description: 排序
+                            example: 100
+                          more:
+                            type: object
+                            description: 更多信息
+                            properties:
+                              thumbnail:
+                                type: string
+                                description: 缩略图
+                                example: "http://localhost/upload/default/20240103/11a311dbb379a4175d3d6997d73cd900.png"
+                              photos:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    url:
+                                      type: string
+                                      description: 图片URL
+                                    name:
+                                      type: string
+                                      description: 图片名称
+                              uphotos:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    url:
+                                      type: string
+                                      description: 图片URL
+                                    name:
+                                      type: string
+                                      description: 图片名称
+                          parent_id:
+                            type: integer
+                            description: 父级ID
+                            example: 0
+                          path:
+                            type: string
+                            description: 路径
+                            example: "0-1"
+                          description:
+                            type: string
+                            description: 描述
+                            example: ""
+                          seo_title:
+                            type: string
+                            description: SEO标题
+                            example: ""
+                          seo_keywords:
+                            type: string
+                            description: SEO关键词
+                            example: ""
+                          seo_description:
+                            type: string
+                            description: SEO描述
+                            example: ""
+                          list_tpl:
+                            type: string
+                            description: 列表模板
+                            example: ""
+                          one_tpl:
+                            type: string
+                            description: 详情模板
+                            example: ""
+
+  /user/community/status:
+    post:
+      tags:
+        - user-community
+      summary: 修改内容状态
+      description: 修改社区内容的状态（上下架）
+      operationId: user_community_status
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 内容ID
+                  example: 1
+                status:
+                  type: integer
+                  description: 状态 (0-下架, 1-上架)
+                  example: 1
+      responses:
+        '200':
+          description: 修改成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "修改成功"
+        '400':
+          description: 修改失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "修改失败"
+
+  /user/community/report:
+    post:
+      tags:
+        - user-community
+      summary: 举报内容
+      description: 举报社区内容
+      operationId: user_community_report
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 内容ID
+                  example: 1
+                status:
+                  type: integer
+                  description: 举报状态
+                  example: 0
+      responses:
+        '200':
+          description: 举报成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "举报成功"
+
+  /user/community/refresh:
+    post:
+      tags:
+        - user-community
+      summary: 刷新内容
+      description: 刷新社区内容的更新时间
+      operationId: user_community_refresh
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 内容ID
+                  example: 1
+      responses:
+        '200':
+          description: 刷新成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "刷新成功"
+        '400':
+          description: 刷新失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "刷新失败"
+
+  /user/community/set_top:
+    post:
+      tags:
+        - user-community
+      summary: 置顶内容
+      description: 置顶社区内容（需要消耗积分）
+      operationId: user_community_set_top
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 内容ID
+                  example: 1
+      responses:
+        '200':
+          description: 置顶成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "置顶成功"
+        '400':
+          description: 置顶失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "积分不足"
+
+  /user/community/delete:
+    post:
+      tags:
+        - user-community
+      summary: 删除内容
+      description: 删除社区内容
+      operationId: user_community_delete
+      security:
+        - ApiToken-AuthorizationBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 内容ID
+                  example: 1
+      responses:
+        '200':
+          description: 删除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "删除成功"
+        '400':
+          description: 删除失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "删除失败"
+
 tags:
   -
     name: order
@@ -2536,6 +3612,9 @@ tags:
   -
     name: user-center
     description: 用户中心相关接口
+  -
+    name: user-community
+    description: 用户社区相关接口
 
 components:
   securitySchemes:
