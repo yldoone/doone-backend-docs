@@ -851,6 +851,969 @@ paths:
                               type: object
                             description: 图表系列数据
 
+  /user/center/myscores:
+    get:
+      tags:
+        - user-center
+      summary: 用户积分信息
+      description: 获取用户的积分信息，支持连锁店积分统计
+      operationId: user_center_myscores
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的积分信息
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 会员ID
+                          example: 1001
+                        store_id:
+                          type: integer
+                          description: 门店ID
+                          example: 10
+                        avatar:
+                          type: string
+                          description: 用户头像
+                          example: ""
+                        user_nickname:
+                          type: string
+                          description: 用户昵称
+                          example: "Test User"
+                        sex:
+                          type: integer
+                          description: 性别 (0-未知, 1-男, 2-女)
+                          example: 0
+                        user_email:
+                          type: string
+                          description: 用户邮箱
+                          example: ""
+                        mobile:
+                          type: string
+                          description: 手机号
+                          example: "13800138000"
+                        card:
+                          type: string
+                          description: 会员卡号
+                          example: ""
+                        birthday:
+                          type: string
+                          nullable: true
+                          description: 生日
+                          example: null
+                        location:
+                          type: string
+                          description: 位置
+                          example: ""
+                        address:
+                          type: string
+                          description: 地址
+                          example: ""
+                        score:
+                          type: array
+                          description: 积分详情（连锁店时包含各店积分）
+                          items:
+                            type: object
+                            properties:
+                              store_id:
+                                type: integer
+                                description: 门店ID
+                              store_name:
+                                type: string
+                                description: 门店名称
+                              value:
+                                type: integer
+                                description: 积分值
+                        balance:
+                          type: string
+                          description: 余额
+                          example: "100.50"
+                        card_balance:
+                          type: string
+                          description: 卡余额
+                          example: "0.00"
+                        content:
+                          type: string
+                          description: 内容
+                          example: ""
+                        create_time:
+                          type: string
+                          description: 创建时间
+                          example: "2025-08-04"
+                        delete_time:
+                          type: string
+                          nullable: true
+                          description: 删除时间
+                          example: null
+                        tostore_time:
+                          type: integer
+                          description: 到店时间
+                          example: 0
+                        last_order_time:
+                          type: string
+                          description: 最后订单时间
+                          example: "-"
+                        last_comment_time:
+                          type: integer
+                          description: 最后评论时间
+                          example: 0
+                        sms_status:
+                          type: integer
+                          description: 短信状态
+                          example: 0
+                        email_status:
+                          type: integer
+                          description: 邮箱状态
+                          example: 0
+                        order_count:
+                          type: integer
+                          description: 订单数量
+                          example: 0
+                        order_total_price:
+                          type: string
+                          description: 订单总价
+                          example: "0.00"
+                        user_id:
+                          type: integer
+                          description: 用户ID
+                          example: 51905
+                        status:
+                          type: integer
+                          description: 状态
+                          example: 1
+                        user_pass:
+                          type: string
+                          description: 用户密码
+                          example: ""
+                        category_id:
+                          type: integer
+                          description: 分类ID
+                          example: 0
+                        pay_status:
+                          type: integer
+                          description: 支付状态
+                          example: 0
+                        pay_time:
+                          type: integer
+                          description: 支付时间
+                          example: 0
+                        pay_sn:
+                          type: string
+                          description: 支付单号
+                          example: ""
+                        price:
+                          type: string
+                          description: 价格
+                          example: "0.00"
+                        pay_price:
+                          type: string
+                          description: 支付价格
+                          example: "0.00"
+                        pay_score:
+                          type: integer
+                          description: 支付积分
+                          example: 0
+                        level:
+                          type: string
+                          description: 等级
+                          example: ""
+                        comment:
+                          type: string
+                          description: 评论
+                          example: ""
+                        endtime:
+                          type: integer
+                          description: 结束时间
+                          example: 0
+                        islong:
+                          type: integer
+                          description: 是否长期
+                          example: 0
+                        last_login_time:
+                          type: integer
+                          description: 最后登录时间
+                          example: 0
+                        toper_name:
+                          type: string
+                          description: 操作员名称
+                          example: ""
+                        tocom_content:
+                          type: string
+                          description: 操作内容
+                          example: ""
+                        tocom_fraction:
+                          type: string
+                          description: 操作分数
+                          example: ""
+                        tocom_reply:
+                          type: string
+                          description: 操作回复
+                          example: ""
+                        is_lose_send:
+                          type: integer
+                          description: 是否丢失发送
+                          example: 0
+                        is_lost_send:
+                          type: integer
+                          description: 是否丢失发送
+                          example: 0
+                        times:
+                          type: integer
+                          description: 次数
+                          example: 0
+                        is_block:
+                          type: integer
+                          description: 是否屏蔽
+                          example: 0
+                        not_in_count:
+                          type: integer
+                          description: 不在计数
+                          example: 0
+                        import_date:
+                          type: string
+                          description: 导入日期
+                          example: ""
+                        total_score:
+                          type: integer
+                          description: 总积分
+                          example: 0
+                        store:
+                          type: object
+                          description: 门店信息
+                          properties:
+                            id:
+                              type: integer
+                              description: 门店ID
+                              example: 10
+                            thumbnail:
+                              type: string
+                              description: 门店缩略图
+                              example: "http://localhost/upload/default/20240324/72a2f3170d7475dbb6919d47ca66dedc.jpeg"
+                            store_name:
+                              type: string
+                              description: 门店名称
+                              example: "Chain Store HQ"
+                            address:
+                              type: string
+                              description: 门店地址
+                              example: "YY"
+
+  /user/center/myscoreslogs:
+    get:
+      tags:
+        - user-center
+      summary: 用户积分日志
+      description: 获取用户的积分变动日志记录
+      operationId: user_center_myscoreslogs
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的积分日志
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 日志ID
+                          example: 1
+                        member_id:
+                          type: integer
+                          description: 会员ID
+                          example: 1001
+                        store_id:
+                          type: integer
+                          description: 门店ID
+                          example: 10
+                        change:
+                          type: integer
+                          description: 积分变动值（正数为增加，负数为减少）
+                          example: 100
+                        balance:
+                          type: integer
+                          description: 变动后积分余额
+                          example: 850
+                        type:
+                          type: integer
+                          description: 变动类型
+                          example: 1
+                        description:
+                          type: string
+                          description: 变动描述
+                          example: "消费获得积分"
+                        create_time:
+                          type: string
+                          description: 创建时间（格式：D,M d,Y h:i a）
+                          example: "Wed, Aug 6, 2025 3:33 PM"
+
+  /user/center/mybalances:
+    get:
+      tags:
+        - user-center
+      summary: 用户余额信息
+      description: 获取用户的余额信息，支持连锁店余额统计
+      operationId: user_center_mybalances
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的余额信息
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 会员ID
+                          example: 1001
+                        store_id:
+                          type: integer
+                          description: 门店ID
+                          example: 10
+                        avatar:
+                          type: string
+                          description: 用户头像
+                          example: ""
+                        user_nickname:
+                          type: string
+                          description: 用户昵称
+                          example: "Test User"
+                        sex:
+                          type: integer
+                          description: 性别 (0-未知, 1-男, 2-女)
+                          example: 0
+                        user_email:
+                          type: string
+                          description: 用户邮箱
+                          example: ""
+                        mobile:
+                          type: string
+                          description: 手机号
+                          example: "13800138000"
+                        card:
+                          type: string
+                          description: 会员卡号
+                          example: ""
+                        birthday:
+                          type: string
+                          nullable: true
+                          description: 生日
+                          example: null
+                        location:
+                          type: string
+                          description: 位置
+                          example: ""
+                        address:
+                          type: string
+                          description: 地址
+                          example: ""
+                        score:
+                          type: integer
+                          description: 积分
+                          example: 500
+                        balance:
+                          type: array
+                          description: 余额详情（连锁店时包含各店余额）
+                          items:
+                            type: object
+                            properties:
+                              store_id:
+                                type: integer
+                                description: 门店ID
+                              store_name:
+                                type: string
+                                description: 门店名称
+                              value:
+                                type: number
+                                format: float
+                                description: 余额值
+                        card_balance:
+                          type: string
+                          description: 卡余额
+                          example: "0.00"
+                        content:
+                          type: string
+                          description: 内容
+                          example: ""
+                        create_time:
+                          type: string
+                          description: 创建时间
+                          example: "2025-08-04"
+                        delete_time:
+                          type: string
+                          nullable: true
+                          description: 删除时间
+                          example: null
+                        tostore_time:
+                          type: integer
+                          description: 到店时间
+                          example: 0
+                        last_order_time:
+                          type: string
+                          description: 最后订单时间
+                          example: "-"
+                        last_comment_time:
+                          type: integer
+                          description: 最后评论时间
+                          example: 0
+                        sms_status:
+                          type: integer
+                          description: 短信状态
+                          example: 0
+                        email_status:
+                          type: integer
+                          description: 邮箱状态
+                          example: 0
+                        order_count:
+                          type: integer
+                          description: 订单数量
+                          example: 0
+                        order_total_price:
+                          type: string
+                          description: 订单总价
+                          example: "0.00"
+                        user_id:
+                          type: integer
+                          description: 用户ID
+                          example: 51905
+                        status:
+                          type: integer
+                          description: 状态
+                          example: 1
+                        user_pass:
+                          type: string
+                          description: 用户密码
+                          example: ""
+                        category_id:
+                          type: integer
+                          description: 分类ID
+                          example: 0
+                        pay_status:
+                          type: integer
+                          description: 支付状态
+                          example: 0
+                        pay_time:
+                          type: integer
+                          description: 支付时间
+                          example: 0
+                        pay_sn:
+                          type: string
+                          description: 支付单号
+                          example: ""
+                        price:
+                          type: string
+                          description: 价格
+                          example: "0.00"
+                        pay_price:
+                          type: string
+                          description: 支付价格
+                          example: "0.00"
+                        pay_score:
+                          type: integer
+                          description: 支付积分
+                          example: 0
+                        level:
+                          type: string
+                          description: 等级
+                          example: ""
+                        comment:
+                          type: string
+                          description: 评论
+                          example: ""
+                        endtime:
+                          type: integer
+                          description: 结束时间
+                          example: 0
+                        islong:
+                          type: integer
+                          description: 是否长期
+                          example: 0
+                        last_login_time:
+                          type: integer
+                          description: 最后登录时间
+                          example: 0
+                        toper_name:
+                          type: string
+                          description: 操作员名称
+                          example: ""
+                        tocom_content:
+                          type: string
+                          description: 操作内容
+                          example: ""
+                        tocom_fraction:
+                          type: string
+                          description: 操作分数
+                          example: ""
+                        tocom_reply:
+                          type: string
+                          description: 操作回复
+                          example: ""
+                        is_lose_send:
+                          type: integer
+                          description: 是否丢失发送
+                          example: 0
+                        is_lost_send:
+                          type: integer
+                          description: 是否丢失发送
+                          example: 0
+                        times:
+                          type: integer
+                          description: 次数
+                          example: 0
+                        is_block:
+                          type: integer
+                          description: 是否屏蔽
+                          example: 0
+                        not_in_count:
+                          type: integer
+                          description: 不在计数
+                          example: 0
+                        import_date:
+                          type: string
+                          description: 导入日期
+                          example: ""
+                        total_balance:
+                          type: integer
+                          description: 总余额
+                          example: 0
+                        store:
+                          type: object
+                          description: 门店信息
+                          properties:
+                            id:
+                              type: integer
+                              description: 门店ID
+                              example: 10
+                            thumbnail:
+                              type: string
+                              description: 门店缩略图
+                              example: "http://localhost/upload/default/20240324/72a2f3170d7475dbb6919d47ca66dedc.jpeg"
+                            store_name:
+                              type: string
+                              description: 门店名称
+                              example: "Chain Store HQ"
+                            address:
+                              type: string
+                              description: 门店地址
+                              example: "YY"
+
+  /user/center/mybalanceslogs:
+    get:
+      tags:
+        - user-center
+      summary: 用户余额日志
+      description: 获取用户的余额变动日志记录
+      operationId: user_center_mybalanceslogs
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的余额日志
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 日志ID
+                          example: 1
+                        member_id:
+                          type: integer
+                          description: 会员ID
+                          example: 1001
+                        store_id:
+                          type: integer
+                          description: 门店ID
+                          example: 10
+                        change:
+                          type: number
+                          format: float
+                          description: 余额变动值（正数为增加，负数为减少）
+                          example: 100.50
+                        balance:
+                          type: number
+                          format: float
+                          description: 变动后余额
+                          example: 500.00
+                        type:
+                          type: integer
+                          description: 变动类型
+                          example: 1
+                        description:
+                          type: string
+                          description: 变动描述
+                          example: "充值"
+                        create_time:
+                          type: string
+                          description: 创建时间（格式：D,M d,Y h:i a）
+                          example: "Wed, Aug 6, 2025 3:33 PM"
+
+  /user/center/mygiftcards:
+    get:
+      tags:
+        - user-center
+      summary: 用户礼卡信息
+      description: 获取用户的礼卡信息，支持连锁店礼卡统计
+      operationId: user_center_mygiftcards
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的礼卡信息
+          required: false
+          schema:
+            type: integer
+        -
+          name: card_id
+          in: query
+          description: 礼卡ID，用于筛选特定礼卡
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 会员ID
+                          example: 1001
+                        store_id:
+                          type: integer
+                          description: 门店ID
+                          example: 10
+                        avatar:
+                          type: string
+                          description: 用户头像
+                          example: ""
+                        user_nickname:
+                          type: string
+                          description: 用户昵称
+                          example: "Test User"
+                        sex:
+                          type: integer
+                          description: 性别 (0-未知, 1-男, 2-女)
+                          example: 0
+                        user_email:
+                          type: string
+                          description: 用户邮箱
+                          example: ""
+                        mobile:
+                          type: string
+                          description: 手机号
+                          example: "13800138000"
+                        card:
+                          type: string
+                          description: 会员卡号
+                          example: ""
+                        birthday:
+                          type: string
+                          nullable: true
+                          description: 生日
+                          example: null
+                        location:
+                          type: string
+                          description: 位置
+                          example: ""
+                        address:
+                          type: string
+                          description: 地址
+                          example: ""
+                        score:
+                          type: integer
+                          description: 积分
+                          example: 500
+                        balance:
+                          type: string
+                          description: 余额
+                          example: "100.50"
+                        card_balance:
+                          type: string
+                          description: 卡余额
+                          example: "0.00"
+                        content:
+                          type: string
+                          description: 内容
+                          example: ""
+                        create_time:
+                          type: string
+                          description: 创建时间
+                          example: "2025-08-04"
+                        delete_time:
+                          type: string
+                          nullable: true
+                          description: 删除时间
+                          example: null
+                        tostore_time:
+                          type: integer
+                          description: 到店时间
+                          example: 0
+                        last_order_time:
+                          type: string
+                          description: 最后订单时间
+                          example: "-"
+                        last_comment_time:
+                          type: integer
+                          description: 最后评论时间
+                          example: 0
+                        sms_status:
+                          type: integer
+                          description: 短信状态
+                          example: 0
+                        email_status:
+                          type: integer
+                          description: 邮箱状态
+                          example: 0
+                        order_count:
+                          type: integer
+                          description: 订单数量
+                          example: 0
+                        order_total_price:
+                          type: string
+                          description: 订单总价
+                          example: "0.00"
+                        user_id:
+                          type: integer
+                          description: 用户ID
+                          example: 51905
+                        status:
+                          type: integer
+                          description: 状态
+                          example: 1
+                        user_pass:
+                          type: string
+                          description: 用户密码
+                          example: ""
+                        category_id:
+                          type: integer
+                          description: 分类ID
+                          example: 0
+                        pay_status:
+                          type: integer
+                          description: 支付状态
+                          example: 0
+                        pay_time:
+                          type: integer
+                          description: 支付时间
+                          example: 0
+                        pay_sn:
+                          type: string
+                          description: 支付单号
+                          example: ""
+                        price:
+                          type: string
+                          description: 价格
+                          example: "0.00"
+                        pay_price:
+                          type: string
+                          description: 支付价格
+                          example: "0.00"
+                        pay_score:
+                          type: integer
+                          description: 支付积分
+                          example: 0
+                        level:
+                          type: string
+                          description: 等级
+                          example: ""
+                        comment:
+                          type: string
+                          description: 评论
+                          example: ""
+                        endtime:
+                          type: integer
+                          description: 结束时间
+                          example: 0
+                        islong:
+                          type: integer
+                          description: 是否长期
+                          example: 0
+                        last_login_time:
+                          type: integer
+                          description: 最后登录时间
+                          example: 0
+                        toper_name:
+                          type: string
+                          description: 操作员名称
+                          example: ""
+                        tocom_content:
+                          type: string
+                          description: 操作内容
+                          example: ""
+                        tocom_fraction:
+                          type: string
+                          description: 操作分数
+                          example: ""
+                        tocom_reply:
+                          type: string
+                          description: 操作回复
+                          example: ""
+                        is_lose_send:
+                          type: integer
+                          description: 是否丢失发送
+                          example: 0
+                        is_lost_send:
+                          type: integer
+                          description: 是否丢失发送
+                          example: 0
+                        times:
+                          type: integer
+                          description: 次数
+                          example: 0
+                        is_block:
+                          type: integer
+                          description: 是否屏蔽
+                          example: 0
+                        not_in_count:
+                          type: integer
+                          description: 不在计数
+                          example: 0
+                        import_date:
+                          type: string
+                          description: 导入日期
+                          example: ""
+                        giftCardsAmount:
+                          type: array
+                          description: 礼卡金额详情（连锁店时包含各店礼卡金额）
+                          items:
+                            type: object
+                            properties:
+                              store_id:
+                                type: integer
+                                description: 门店ID
+                              store_name:
+                                type: string
+                                description: 门店名称
+                              value:
+                                type: number
+                                format: float
+                                description: 礼卡金额
+                        total_giftCardsAmount:
+                          type: integer
+                          description: 总礼卡金额
+                          example: 0
+                        store:
+                          type: object
+                          description: 门店信息
+                          properties:
+                            id:
+                              type: integer
+                              description: 门店ID
+                              example: 10
+                            thumbnail:
+                              type: string
+                              description: 门店缩略图
+                              example: "http://localhost/upload/default/20240324/72a2f3170d7475dbb6919d47ca66dedc.jpeg"
+                            store_name:
+                              type: string
+                              description: 门店名称
+                              example: "Chain Store HQ"
+                            address:
+                              type: string
+                              description: 门店地址
+                              example: "YY"
+
 tags:
   -
     name: order
