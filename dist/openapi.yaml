@@ -723,6 +723,134 @@ paths:
                     type: string
                     example: "抱歉，现有差额 $20 无法结账"
 
+  /user/center/statistics:
+    get:
+      tags:
+        - user-center
+      summary: 用户统计信息
+      description: 获取用户的统计信息，包括动态、关注、粉丝、消费、积分、余额、礼卡、优惠券等数据
+      operationId: user_center_statistics
+      security:
+        - ApiToken-AuthorizationBearer: []
+      parameters:
+        -
+          name: field
+          in: query
+          description: 需要获取的统计字段，多个用逗号分隔 (dynamic, following, followers, likes, payments, points, balances, giftCards, coupons)
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+            default: ["dynamic", "following", "followers", "payments", "points", "balances", "giftCards", "coupons"]
+        -
+          name: store_id
+          in: query
+          description: 门店ID，用于筛选特定门店的统计数据
+          required: false
+          schema:
+            type: integer
+        -
+          name: user_id
+          in: query
+          description: 用户ID，默认为当前登录用户
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 1
+                  msg:
+                    type: string
+                    example: "请求成功"
+                  data:
+                    type: object
+                    properties:
+                      dynamicCount:
+                        type: integer
+                        description: 动态总数
+                        example: 5
+                      followingCount:
+                        type: integer
+                        description: 关注总数
+                        example: 12
+                      followersCount:
+                        type: integer
+                        description: 粉丝总数
+                        example: 8
+                      likesCount:
+                        type: integer
+                        description: 喜欢总数
+                        example: 25
+                      paymentsAmount:
+                        type: number
+                        format: float
+                        description: 消费金额
+                        example: 1250.50
+                      pointsCount:
+                        type: integer
+                        description: 积分总数
+                        example: 850
+                      balancesCount:
+                        type: number
+                        format: float
+                        description: 余额总数
+                        example: 500.00
+                      giftCardsCount:
+                        type: number
+                        format: float
+                        description: 礼卡余额
+                        example: 200.00
+                      couponsCount:
+                        type: number
+                        format: float
+                        description: 优惠券总额
+                        example: 150.00
+                      nextNumber:
+                        type: integer
+                        description: 下一个积分等级所需积分
+                        example: 1000
+                      pointsNumber:
+                        type: integer
+                        description: 当前积分数量
+                        example: 850
+                      pointsPer:
+                        type: number
+                        format: float
+                        description: 积分进度比例
+                        example: 0.85
+                      pointsPer100:
+                        type: integer
+                        description: 积分进度百分比
+                        example: 85
+                      pointsMoney:
+                        type: number
+                        format: float
+                        description: 积分对应金额
+                        example: 25.00
+                      pointsRewords:
+                        type: number
+                        format: float
+                        description: 积分奖励总额
+                        example: 50.00
+                      optionData:
+                        type: object
+                        description: 图表配置数据
+                        properties:
+                          series:
+                            type: array
+                            items:
+                              type: object
+                            description: 图表系列数据
+
 tags:
   -
     name: order
@@ -730,6 +858,9 @@ tags:
   -
     name: store-order
     description: 门店订单相关接口
+  -
+    name: user-center
+    description: 用户中心相关接口
 
 components:
   securitySchemes:
