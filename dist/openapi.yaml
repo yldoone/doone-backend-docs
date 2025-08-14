@@ -4,7 +4,8 @@ info:
   description: |
     Doone 后台系统的接口文档
     
-    **注意**: 所有 API 请求都需要包含以下自定义头部：
+
+    **注意**: 商家和用户端采用 Bearer Token 认证，API 请求都需要包含以下头部：
 
     - `XX-Device-Type`: 设备类型（如: web, mobile, tablet）
     - `XX-deviceId`: 设备标识符
@@ -23,11 +24,20 @@ info:
       -H "XX-deviceId: test-device-123" \
       -H "XX-appId: __UNI__24E4D78"
     ```
+
+    **注意**: 后台管理端采用 Session 认证，API 请求都需要包含Cookie: PHPSESSID 头部：
+    示例：  
+    ```bash
+     curl -X GET "http://localhost:8080/coupon/AdminReferral/template?scope=system" 
+     -H "Cookie: PHPSESSID=cad1cf696fc1be8d561874542af895fb"
+    ```
+
   version: 1.0.0
 servers:
   -
     url: 'http://localhost'
     description: 本地开发服务器
+
 paths:
   /order/order/myorder:
     get:
@@ -3602,6 +3612,176 @@ paths:
                     type: string
                     example: "删除失败"
 
+  /coupon/AdminReferral/template:
+    get:
+      tags:
+        - Referral Templates
+      summary: Get referral coupon template
+      description: |
+        Retrieve the referral coupon template for the current store or system default.
+        
+        - If the current store has a custom template, returns that template
+        - If the current store uses system default, returns the system template
+        - Super admins can access system templates directly
+      parameters:
+        - name: scope
+          in: query
+          description: Template scope to retrieve
+          required: false
+          schema:
+            type: string
+            enum: [store, system]
+            default: store
+          example: store
+      responses:
+        '200':
+          description: Template retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: Response status code (1 = success, 0 = error)
+                    example: 1
+                  msg:
+                    type: string
+                    description: Response message
+                    example: "获取成功"
+                  data:
+                    $ref: '#/components/schemas/CouponTemplate'
+                  is_super_admin:
+                    type: boolean
+                    description: Whether the current user is a super admin
+                    example: false
+                  is_system_template:
+                    type: boolean
+                    description: Whether the returned template is a system template
+                    example: true
+        '400':
+          description: Bad request or template not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /coupon/AdminReferral/templatePost:
+    post:
+      tags:
+        - Referral Templates
+      summary: Update referral coupon template
+      description: |
+        Update the referral coupon template configuration.
+        
+        - If updating system template, requires super admin privileges
+        - If updating store template, creates a copy of system template if none exists
+        - All fields are optional - only provided fields will be updated
+        - Changes are logged in the audit system
+      parameters:
+        - name: scope
+          in: query
+          description: Template scope to update
+          required: false
+          schema:
+            type: string
+            enum: [store, system]
+            default: store
+          example: store
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                money:
+                  type: string
+                  description: Coupon amount in yuan (max 2 decimal places, > 0, <= 10000)
+                  example: "5.00"
+                  pattern: '^\d+(\.\d{1,2})?$'
+                end_days:
+                  type: string
+                  description: Validity period in days (integer, >= 1, <= 365)
+                  example: "30"
+                  pattern: '^\d+$'
+                name:
+                  type: string
+                  description: Coupon name
+                  example: "分享裂变优惠券"
+                  maxLength: 100
+                condition:
+                  type: string
+                  description: Usage conditions
+                  example: "满100元可用"
+                  maxLength: 200
+                description:
+                  type: string
+                  description: Detailed description
+                  example: "通过分享获得的裂变优惠券"
+                  maxLength: 500
+                thumbnail:
+                  type: string
+                  description: Thumbnail image URL
+                  example: "/upload/coupon/thumb.jpg"
+                images:
+                  type: string
+                  description: Additional image URLs (JSON array)
+                  example: '["/upload/coupon/img1.jpg", "/upload/coupon/img2.jpg"]'
+                use_start_time:
+                  type: string
+                  description: Usage start time (timestamp)
+                  example: "1640995200"
+                use_end_time:
+                  type: string
+                  description: Usage end time (timestamp)
+                  example: "1672531200"
+              required:
+                - money
+                - end_days
+      responses:
+        '200':
+          description: Template updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: Response status code (1 = success, 0 = error)
+                    example: 1
+                  msg:
+                    type: string
+                    description: Response message
+                    example: "设置成功"
+                  data:
+                    $ref: '#/components/schemas/CouponTemplate'
+        '400':
+          description: Bad request or validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - insufficient privileges
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 tags:
   -
     name: order
@@ -3615,6 +3795,8 @@ tags:
   -
     name: user-community
     description: 用户社区相关接口
+
+
 
 components:
   securitySchemes:
@@ -3638,4 +3820,164 @@ components:
       name: Authorization
       in: header
       description: 'Authorization header for API authentication'
-# Test comment - Wed Aug  6 15:33:12 EDT 2025
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: PHPSESSID
+      description: Session cookie for admin authentication
+  schemas:
+    CouponTemplate:
+      type: object
+      description: Referral coupon template configuration
+      properties:
+        id:
+          type: integer
+          description: Template ID
+          example: 123
+        name:
+          type: string
+          description: Coupon name
+          example: "分享裂变优惠券"
+        money:
+          type: string
+          description: Coupon amount in yuan
+          example: "5.00"
+        condition:
+          type: string
+          description: Usage conditions
+          example: "满100元可用"
+        end_days:
+          type: integer
+          description: Validity period in days
+          example: 30
+        description:
+          type: string
+          description: Detailed description
+          example: "通过分享获得的裂变优惠券"
+        thumbnail:
+          type: string
+          description: Thumbnail image URL
+          example: "/upload/coupon/thumb.jpg"
+        images:
+          type: string
+          description: Additional image URLs (JSON array)
+          example: '["/upload/coupon/img1.jpg", "/upload/coupon/img2.jpg"]'
+        use_start_time:
+          type: integer
+          description: Usage start time (timestamp)
+          example: 1640995200
+        use_end_time:
+          type: integer
+          description: Usage end time (timestamp)
+          example: 1672531200
+        status:
+          type: integer
+          description: Template status (1 = enabled, 0 = disabled)
+          example: 1
+        send_id:
+          type: string
+          description: Template source identifier
+          example: "system"
+          enum: ["system", "store"]
+        create_time:
+          type: integer
+          description: Creation timestamp
+          example: 1640995200
+        update_time:
+          type: integer
+          description: Last update timestamp
+          example: 1640995200
+      required:
+        - id
+        - name
+        - money
+        - end_days
+        - status
+        - send_id
+
+    ErrorResponse:
+      type: object
+      description: Error response structure
+      properties:
+        code:
+          type: integer
+          description: Error status code (always 0 for errors)
+          example: 0
+        msg:
+          type: string
+          description: Error message
+          example: "获取模板失败: 模板不存在"
+        data:
+          type: string
+          description: Empty data for errors
+          example: ""
+        url:
+          type: string
+          description: Redirect URL (if applicable)
+          example: ""
+        wait:
+          type: integer
+          description: Wait time in seconds (if applicable)
+          example: 3
+
+security:
+  - sessionAuth: []
+
+examples:
+  getStoreTemplate:
+    summary: Get store-specific template
+    value:
+      code: 1
+      msg: "获取成功"
+      data:
+        id: 456
+        name: "店铺自定义优惠券"
+        money: "10.00"
+        end_days: 15
+        status: 1
+        send_id: "store"
+        create_time: 1640995200
+        update_time: 1640995200
+      is_super_admin: false
+      is_system_template: false
+
+  getSystemTemplate:
+    summary: Get system default template
+    value:
+      code: 1
+      msg: "获取成功"
+      data:
+        id: 123
+        name: "系统默认优惠券"
+        money: "5.00"
+        end_days: 30
+        status: 1
+        send_id: "system"
+        create_time: 1640995200
+        update_time: 1640995200
+      is_super_admin: true
+      is_system_template: true
+
+  updateTemplate:
+    summary: Update template successfully
+    value:
+      code: 1
+      msg: "设置成功"
+      data:
+        id: 456
+        name: "更新后的优惠券"
+        money: "8.00"
+        end_days: 20
+        status: 1
+        send_id: "store"
+        create_time: 1640995200
+        update_time: 1640995200
+
+  validationError:
+    summary: Validation error response
+    value:
+      code: 0
+      msg: "设置模板失败: 优惠券金额最多只能有两位小数"
+      data: ""
+      url: ""
+      wait: 3
