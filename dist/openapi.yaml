@@ -3781,6 +3781,439 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+   /user/referral/userInfo:
+    get:
+      tags:
+        - user-referral
+      summary: 获取用户推荐信息
+      description: 获取当前用户的推荐码、推荐历史和推荐人信息
+      operationId: user_referral_userInfo
+      security:
+        - ApiToken-AuthorizationBearer: []
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: 响应状态码
+                    example: 1
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: "获取成功"
+                  data:
+                    type: object
+                    description: 推荐信息数据
+                    properties:
+                      referral_code:
+                        type: string
+                        nullable: true
+                        description: 用户的推荐码
+                        example: "SPA123"
+                      referral_history:
+                        type: array
+                        description: 用户的推荐历史列表
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: 推荐记录ID
+                              example: 2
+                            referee_id:
+                              type: integer
+                              description: 被推荐人ID
+                              example: 134
+                            status:
+                              type: integer
+                              description: 推荐状态 (1=推荐成功, 2=奖励完成)
+                              example: 1
+                            refer_time:
+                              type: integer
+                              description: 推荐时间戳
+                              example: 1755287359
+                            user_nickname:
+                              type: string
+                              description: 被推荐人昵称
+                              example: "新用户"
+                            mobile:
+                              type: string
+                              description: 被推荐人手机号
+                              example: "13011112123"
+                      referrer_info:
+                        type: object
+                        nullable: true
+                        description: 推荐人信息
+                        properties:
+                          referrer_id:
+                            type: integer
+                            description: 推荐人ID
+                            example: 137
+                          user_nickname:
+                            type: string
+                            description: 推荐人昵称
+                            example: "Emily"
+                          mobile:
+                            type: string
+                            description: 推荐人手机号
+                            example: "9295901111"
+                          refer_time:
+                            type: integer
+                            description: 被推荐时间戳
+                            example: 1755288345
+                  debug:
+                    type: object
+                    description: 调试信息（开发环境）
+                    properties:
+                      userId:
+                        type: integer
+                        description: 当前用户ID
+                        example: 24442
+                      storeId:
+                        type: integer
+                        description: 当前店铺ID
+                        example: 7
+                      userMobile:
+                        type: string
+                        description: 用户手机号
+                        example: "9297892811"
+                      member:
+                        type: object
+                        description: 店铺会员信息
+                        properties:
+                          id:
+                            type: integer
+                            description: 会员ID
+                            example: 260398
+                          store_id:
+                            type: integer
+                            description: 店铺ID
+                            example: 7
+                          user_nickname:
+                            type: string
+                            description: 用户昵称
+                            example: "A"
+                          mobile:
+                            type: string
+                            description: 手机号
+                            example: "9297892811"
+                          score:
+                            type: integer
+                            description: 积分
+                            example: 710
+                          balance:
+                            type: string
+                            description: 余额
+                            example: "0.00"
+                      referralCode:
+                        type: string
+                        nullable: true
+                        description: 推荐码
+                        example: "SPA123"
+                      data:
+                        type: object
+                        description: 返回的数据
+                        properties:
+                          referral_code:
+                            type: string
+                            nullable: true
+                            description: 推荐码
+                            example: "SPA123"
+                          referral_history:
+                            type: array
+                            description: 推荐历史
+                            items:
+                              type: object
+                          referrer_info:
+                            type: object
+                            nullable: true
+                            description: 推荐人信息
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "用户未关联店铺"
+                  data:
+                    type: string
+                    example: ""
+        '500':
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "获取推荐信息失败: 数据库连接错误"
+                  data:
+                    type: string
+                    example: ""
+    /user/referral/userInfo:
+    get:
+      tags:
+        - user-referral
+      summary: 获取用户推荐信息
+      description: 获取当前用户的推荐码、推荐历史和推荐人信息
+      operationId: user_referral_userInfo
+      security:
+        - ApiToken-AuthorizationBearer: []
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: 响应状态码
+                    example: 1
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: "获取成功"
+                  data:
+                    type: object
+                    description: 推荐信息数据
+                    properties:
+                      referral_code:
+                        type: string
+                        nullable: true
+                        description: 用户的推荐码
+                        example: "SPA123"
+                      referral_history:
+                        type: array
+                        description: 用户的推荐历史列表
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: 推荐记录ID
+                              example: 2
+                            referee_id:
+                              type: integer
+                              description: 被推荐人ID
+                              example: 134
+                            status:
+                              type: integer
+                              description: 推荐状态 (1=推荐成功, 2=奖励完成)
+                              example: 1
+                            refer_time:
+                              type: integer
+                              description: 推荐时间戳
+                              example: 1755287359
+                            user_nickname:
+                              type: string
+                              description: 被推荐人昵称
+                              example: "新用户"
+                            mobile:
+                              type: string
+                              description: 被推荐人手机号
+                              example: "13011112123"
+                      referrer_info:
+                        type: object
+                        nullable: true
+                        description: 推荐人信息
+                        properties:
+                          referrer_id:
+                            type: integer
+                            description: 推荐人ID
+                            example: 137
+                          user_nickname:
+                            type: string
+                            description: 推荐人昵称
+                            example: "Emily"
+                          mobile:
+                            type: string
+                            description: 推荐人手机号
+                            example: "9295901111"
+                          refer_time:
+                            type: integer
+                            description: 被推荐时间戳
+                            example: 1755288345
+                  debug:
+                    type: object
+                    description: 调试信息（开发环境）
+                    properties:
+                      userId:
+                        type: integer
+                        description: 当前用户ID
+                        example: 24442
+                      storeId:
+                        type: integer
+                        description: 当前店铺ID
+                        example: 7
+                      userMobile:
+                        type: string
+                        description: 用户手机号
+                        example: "9297892811"
+                      member:
+                        type: object
+                        description: 店铺会员信息
+                        properties:
+                          id:
+                            type: integer
+                            description: 会员ID
+                            example: 260398
+                          store_id:
+                            type: integer
+                            description: 店铺ID
+                            example: 7
+                          user_nickname:
+                            type: string
+                            description: 用户昵称
+                            example: "A"
+                          mobile:
+                            type: string
+                            description: 手机号
+                            example: "9297892811"
+                          score:
+                            type: integer
+                            description: 积分
+                            example: 710
+                          balance:
+                            type: string
+                            description: 余额
+                            example: "0.00"
+                      referralCode:
+                        type: string
+                        nullable: true
+                        description: 推荐码
+                        example: "SPA123"
+                      data:
+                        type: object
+                        description: 返回的数据
+                        properties:
+                          referral_code:
+                            type: string
+                            nullable: true
+                            description: 推荐码
+                            example: "SPA123"
+                          referral_history:
+                            type: array
+                            description: 推荐历史
+                            items:
+                              type: object
+                          referrer_info:
+                            type: object
+                            nullable: true
+                            description: 推荐人信息
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "用户未关联店铺"
+                  data:
+                    type: string
+                    example: ""
+        '500':
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 0
+                  msg:
+                    type: string
+                    example: "获取推荐信息失败: 数据库连接错误"
+                  data:
+                    type: string
+                    example: ""
+
+components:
+  securitySchemes:
+    ApiToken-AuthorizationBearer:
+      type: http
+      scheme: bearer
+      description: 用户认证Token，需要在请求头中添加 Authorization: Bearer {token}
+
+  schemas:
+    ReferralInfo:
+      type: object
+      description: 推荐信息数据结构
+      properties:
+        referral_code:
+          type: string
+          nullable: true
+          description: 用户的推荐码
+        referral_history:
+          type: array
+          description: 用户的推荐历史列表
+          items:
+            $ref: '#/components/schemas/ReferralHistoryItem'
+        referrer_info:
+          $ref: '#/components/schemas/ReferrerInfo'
+    
+    ReferralHistoryItem:
+      type: object
+      description: 推荐历史记录项
+      properties:
+        id:
+          type: integer
+          description: 推荐记录ID
+        referee_id:
+          type: integer
+          description: 被推荐人ID
+        status:
+          type: integer
+          description: 推荐状态
+        refer_time:
+          type: integer
+          description: 推荐时间戳
+        user_nickname:
+          type: string
+          description: 被推荐人昵称
+        mobile:
+          type: string
+          description: 被推荐人手机号
+    
+    ReferrerInfo:
+      type: object
+      nullable: true
+      description: 推荐人信息
+      properties:
+        referrer_id:
+          type: integer
+          description: 推荐人ID
+        user_nickname:
+          type: string
+          description: 推荐人昵称
+        mobile:
+          type: string
+          description: 推荐人手机号
+        refer_time:
+          type: integer
+          description: 被推荐时间戳
 
 tags:
   -
